@@ -2,14 +2,14 @@ import fastapi
 from fastapi import Depends
 from typing import Optional
 from models.location import Location
-from services.openweather_service import get_report
+from services.openweather_service import get_report_async
 
 router = fastapi.APIRouter()
 
 @router.get('/api/weather/{city}')
-def weather(
+async def weather(
   loc: Location = Depends(),
   units :Optional[str] = 'metric'
   ):
-  report = get_report(loc.city,loc.state,loc.country,units)
+  report = await get_report_async(loc.city,loc.state,loc.country,units)
   return report
