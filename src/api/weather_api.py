@@ -2,6 +2,7 @@ import fastapi
 from fastapi import Depends
 from typing import Optional
 from models.location import Location
+from models.validation_error import ValidationError
 from services.openweather_service import get_report_async
 
 router = fastapi.APIRouter()
@@ -11,5 +12,8 @@ async def weather(
   loc: Location = Depends(),
   units :Optional[str] = 'metric'
   ):
-  report = await get_report_async(loc.city,loc.state,loc.country,units)
-  return report
+  try:
+    return await get_report_async(loc.city,loc.state,loc.country,units)
+  except ValidationError as ve:
+    return fastapi.Response(ve.error_msg, ve.status_code )
+  
