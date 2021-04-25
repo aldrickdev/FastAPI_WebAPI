@@ -3,3 +3,4 @@ uvicorn
 httpx
 Jinja2
 aiofiles
+request
