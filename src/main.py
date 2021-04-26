@@ -7,6 +7,7 @@ from starlette.staticfiles import StaticFiles
 from views import home
 from api import weather_api
 
+# api = fastapi.FastAPI(docs_url=None) # if you dont want docs available
 api = fastapi.FastAPI()
 
 def configure():

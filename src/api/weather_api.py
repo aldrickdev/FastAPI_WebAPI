@@ -21,11 +21,11 @@ async def weather(
   except Exception as e:
     return fastapi.Response(content=str(e), status_code=500)
 
-@router.get('/api/reports', name='all_reports')
-async def reports_get() -> (List):
+@router.get('/api/reports', name='all_reports', response_model=List[Report])
+async def reports_get() -> (List[Report]):
   return await get_reports()
 
-@router.post('/api/reports', name='add_reports', status_code=201)
+@router.post('/api/reports', name='add_reports', status_code=201, response_model=Report)
 async def reports_post(report_submittal: ReportSubmittal) -> (Report):
   desc = report_submittal.desc
   loc = report_submittal.loc
